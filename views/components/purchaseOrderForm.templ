@@ -1,0 +1,91 @@
+package components
+
+import (
+"fmt"
+)
+
+templ PurchaseOrderForm() {
+<title>Form</title>
+<div class="container">
+	<form method="POST" action="/form">
+		<div class="form-floating mb-3">
+			<input class="form-control" type="text" id="title" name="title" required />
+			<label for="title">Title</label>
+		</div>
+		<div class="form-floating mb-3">
+			<textarea class="form-control" rows="3" id="description" name="description" required></textarea>
+			<label for="description">description</label>
+		</div>
+		<div class="form-floating mb-3">
+			<select class="form-select" id="priority" name="priority">
+				<option value="low">Low</option>
+				<option value="medium">Medium</option>
+				<option value="high">High</option>
+			</select>
+			<label for="priority">Priority</label>
+		</div>
+		<div id="items-container">
+			@PurchaseOrderFormItem(1)
+		</div>
+		<button type="button" id="add-item" hx-get="/form/get/item" hx-trigger="click" hx-target="#items-container"
+			hx-swap="beforeend" hx-include="#item-count-input" class="btn btn-secondary">
+			Add Item
+		</button>
+		<input type="hidden" id="item-count-input" name="item_count" value="1" />
+		<button class="btn btn-primary" type="submit">Submit</button>
+	</form>
+</div>
+<script>
+	document.body.addEventListener('updateItemCountEvent', function (evt) {
+		var currentCount = parseInt(document.getElementById('item-count-input').value);
+		document.getElementById('item-count-input').value = currentCount + 1;
+	});
+</script>
+}
+
+templ PurchaseOrderFormItem(count int) {
+<div class="item">
+	<br />
+	<div class="form-floating">
+		<input class="form-control" type="text" id={ fmt.Sprintf("name%d", count) } name={ fmt.Sprintf("name%d", count)
+			} required />
+		<label for={ fmt.Sprintf("name%d", count) }>name</label>
+	</div>
+	<div class="form-floating">
+		<select class="form-select" id={ fmt.Sprintf("supplier%d", count) } name={ fmt.Sprintf("supplier%d", count) }
+			hx-get="/form/get/suppliers" hx-trigger="load">
+			<option value="">Select a supplier</option>
+		</select>
+		<label for={ fmt.Sprintf("supplier%d", count) }>Supplier</label>
+	</div>
+	<div class="form-floating">
+		<select class="form-select" id={ fmt.Sprintf("nominal%d", count) } name={ fmt.Sprintf("nominal%d", count) }
+			hx-get="/form/get/nominals" hx-trigger="load">
+			<option value="">Select a nominal</option>
+		</select>
+		<label for={ fmt.Sprintf("nominal%d", count) }>Nominal</label>
+	</div>
+	<div class="form-floating">
+		<select class="form-select" id={ fmt.Sprintf("product%d", count) } name={ fmt.Sprintf("product%d", count) }
+			hx-get="/form/get/products" hx-trigger="load">
+			<option value="">Select a product</option>
+		</select>
+		<label for={ fmt.Sprintf("product%d", count) }>Product</label>
+	</div>
+	<div class="form-floating">
+		<input class="form-control" type="number" id={ fmt.Sprintf("unit_price%d", count) } name={
+			fmt.Sprintf("unit_price%d", count) } step="0.01" required />
+		<label class="form-label" for={ fmt.Sprintf("unit_price%d", count) }>Unit Price</label>
+	</div>
+	<div class="form-floating">
+		<input class="form-control" type="number" id={ fmt.Sprintf("quantity%d", count) } name={
+			fmt.Sprintf("quantity%d", count) } required />
+		<label for={ fmt.Sprintf("quantity%d", count) }>Quantity</label>
+	</div>
+	<div class="form-floating">
+		<input class="form-control" type="url" id={ fmt.Sprintf("link%d", count) } name={ fmt.Sprintf("link%d", count) }
+			required />
+		<label for={ fmt.Sprintf("link%d", count) }>link</label>
+	</div>
+</div>
+}

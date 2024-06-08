@@ -1,0 +1,69 @@
+body {
+    background: #ebe9e1;
+    color: #e43d12;
+}
+
+.navbar {
+    background: #ebe9e1;
+}
+
+.navbar .nav-item.active .nav-link {
+    /* ... your other active link styles ... */
+    border: 1.5px solid #e43d12;
+    /* Add the border */
+    border-radius: 20px;
+    /* Make it pill-shaped */
+    padding: 8px 16px;
+    /* Adjust padding as needed for visual appeal */
+}
+
+
+
+
+.navbar a {
+    color: #e43d12;
+}
+
+.navbar a:hover {
+    color: #e43d12;
+}
+
+.navbar.scrolled {
+    animation: swipeDown 0.5s ease forwards;
+}
+
+.navbar.scrolled a {
+    color: #ece9e1;
+}
+
+.navbar.scrolled a:hover {
+    color: #ece9e1;
+}
+
+.navbar.scrolled .nav-item.active .nav-link {
+    /* ... your other active link styles ... */
+    border-color: #ece9e1;
+}
+
+
+@keyframes swipeDown {
+    0% {
+        background: #ebe9e1;
+    }
+
+    100% {
+        background: #e43d12;
+    }
+}
+
+
+.loading-spinner {
+    display: none;
+    /* Initially hidden */
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 9999;
+    /* You can add additional styling for width, height, etc. */
+}

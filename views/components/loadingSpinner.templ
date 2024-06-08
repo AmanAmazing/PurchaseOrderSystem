@@ -1,0 +1,17 @@
+package components
+
+templ LoadingSpinner() {
+//<div class="loading-spinner" style="display:none;"></div>
+<img src="https://media.tenor.com/b1Qhzsal0gYAAAAM/lord-jesus.gif" class="loading-spinner" style="display:none;" />
+<script>
+	document.body.addEventListener('htmx:beforeSend', function (event) {
+		const spinner = document.querySelector('.loading-spinner');
+		spinner.style.display = 'block';
+	});
+
+	document.body.addEventListener('htmx:afterSwap', function (event) {
+		const spinner = document.querySelector('.loading-spinner');
+		spinner.style.display = 'none';
+	});
+</script>
+}
